@@ -117,7 +117,7 @@ spec:
           - name: registry
             mountPath: /var/lib/quobyte/devices/registry
       nodeSelector:
-           cloud.google.com/gke-nodepool: {{ .Values.nodepoolname }}
+        region: cadence-quobyte
       affinity:
         podAntiAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -133,7 +133,7 @@ spec:
       name: config
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
+      storageClassName: "netapp-block"
       resources:
         requests:
           storage: 10Gi
@@ -141,7 +141,7 @@ spec:
       name: registry
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "faster"
+      storageClassName: "cadence-quobyte-registry"
       resources:
         requests:
           storage: 25Gi

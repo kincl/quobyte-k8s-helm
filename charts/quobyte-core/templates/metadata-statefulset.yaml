@@ -123,7 +123,7 @@ spec:
             mountPath: {{ .mountpoint }}
           {{- end }}
       nodeSelector:
-           cloud.google.com/gke-nodepool: {{ .Values.nodepoolname }}
+        region: cadence-quobyte
       affinity:
         podAntiAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -139,7 +139,7 @@ spec:
       name: config
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
+      storageClassName: "netapp-block"
       resources:
         requests:
           storage: 10Gi
@@ -148,7 +148,7 @@ spec:
       name: {{ .name }}
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "faster"
+      storageClassName: "cadence-quobyte-metadata"
       resources:
         requests:
           storage: {{ .size }}

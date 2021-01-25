@@ -18,8 +18,8 @@ spec:
         timestamp: "{{ now }}"
     spec:
       terminationGracePeriodSeconds: 10
-      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
+      # hostNetwork: true
+      # dnsPolicy: ClusterFirstWithHostNet
       initContainers:
       - name: quobyte-web-pre 
         image: {{ .Values.quobyte.image }}
@@ -111,7 +111,7 @@ spec:
           - name: config-web
             mountPath: /etc/quobyte
       nodeSelector:
-           cloud.google.com/gke-nodepool: {{ .Values.nodepoolname }}
+        region: cadence-quobyte
       affinity:
         podAntiAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -127,7 +127,7 @@ spec:
       name: config-web
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
+      storageClassName: "netapp-block"
       resources:
         requests:
           storage: 10Gi

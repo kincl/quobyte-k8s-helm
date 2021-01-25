@@ -108,7 +108,7 @@ spec:
           - name: config-api
             mountPath: /etc/quobyte
       nodeSelector:
-           cloud.google.com/gke-nodepool: {{ .Values.nodepoolname }}
+        region: cadence-quobyte
       affinity:
         podAntiAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -124,8 +124,7 @@ spec:
       name: config-api
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "standard"
+      storageClassName: "netapp-block"
       resources:
         requests:
           storage: 10Gi
-
